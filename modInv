@@ -1,0 +1,13 @@
+int power(int a,int x){
+    int ans=1;
+    while(x){
+        if(x&1) ans=(1LL*ans*a)%mod;
+        a=(1LL*a*a)%mod;
+        x>>=1;
+    }
+    return ans;
+}
+
+int modInv(int a){
+    return power(a,mod-2);
+}
