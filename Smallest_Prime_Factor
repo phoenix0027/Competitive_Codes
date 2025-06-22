@@ -1,0 +1,15 @@
+vi spf;
+
+void SprimeF(int n){
+    spf.resize(n+1);
+    forn(i,n+1) spf[i]=i;
+    for(int i=2;i*i<=n;++i){
+        if(spf[i]==i){
+            for(int j=i*i;j<=n;j+=i){
+                if(spf[j]==j){
+                    spf[j]=i;
+                }
+            }
+        }
+    }
+}
