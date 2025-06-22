@@ -1,0 +1,42 @@
+class SEG{
+    vector<int> seg,v;
+public:
+
+    SEG(vector<int> &arr){
+        int n=arr.size();
+        v=arr;
+        seg.resize(4*n+2,0);
+    }
+
+    void build(int idx,int low,int high){
+        if(low==high){
+            seg[idx]=v[low];
+            return;
+        }
+        int mid=(low+high)>>1;
+        build(2*idx+1,low,mid);
+        build(2*idx+2,mid+1,high);
+        seg[idx]=seg[2*idx+1]+seg[2*idx+2];
+    }
+    int query(int idx,int low,int high,int l,int r){
+        // no overlap
+        if(low>r || l>high) return 0;
+        
+        // complete overlap
+        if(low>=l && high<=r) return seg[idx];
+        int mid=(low+high)>>1;
+        int left=query(2*idx+1,low,mid,l,r);
+        int right=query(2*idx+2,mid+1,high,l,r);
+        return left+right;
+    }
+    void Update(int idx,int low,int high,int i,int val){
+        if(low==high){  
+            seg[idx]=val;
+            return;
+        }
+        int mid=(low+high)>>1;
+        if(i<=mid) Update(2*idx+1,low,mid,i,val);
+        else Update(2*idx+2,mid+1,high,i,val);
+        seg[idx]=seg[2*idx+1]+seg[2*idx+2];
+    }
+};
