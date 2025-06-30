@@ -10,7 +10,7 @@ vector<int> topoSort(int n,vector<vector<int>> &adj){
     for(int i=1;i<=n;++i) if(!vis[i]) dfs(i,adj,st,vis);
     vi ans;
     while(!st.empty()){
-        ans.pb(st.top());
+        ans.push_back(st.top());
         st.pop();
     }
     return ans;
