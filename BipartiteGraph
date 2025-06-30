@@ -1,0 +1,16 @@
+bool dfs(int node,vector<int> &color,vector<vector<int>> &adj,int col){
+    color[node]=col;
+    for(auto& i:adj[node]){
+        if(color[i]==-1){
+            if(!dfs(i,color,adj,!col)) return false;
+        }
+        else if(color[i]==col) return false;
+    }
+    return true;
+}
+
+bool isBipartite(int n,vector<vector<int>> &adj){
+    vector<int> color(n+1,-1);
+    for(int i=1;i<=n;++i) if(color[i]==-1 && !dfs(i,color,adj,0)) return false;
+    return true;
+}
