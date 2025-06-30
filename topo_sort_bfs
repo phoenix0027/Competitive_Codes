@@ -1,0 +1,21 @@
+vector<int> topoSort(int n,vector<vector<int>> &adj){
+    vector<int> indeg(n+1,0);
+    for(int i=1;i<=n;++i){
+        for(auto& node:adj[i]){
+            indeg[node]++;
+        }
+    }
+    queue<int> q;
+    for(int i=1;i<=n;++i) if(indeg[i]==0) q.push(i);
+    vector<int> ans;
+    while(!q.empty()){
+        int node=q.front();
+        q.pop();
+        ans.push_back(node);
+        for(auto& i:adj[node]){
+            indeg[i]--;
+            if(indeg[i]==0) q.push(i);
+        }
+    }
+    return ans;
+}
