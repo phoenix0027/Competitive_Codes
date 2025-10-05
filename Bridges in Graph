@@ -1,0 +1,14 @@
+int timer=1;
+void dfs(int node,int par,vector<int> &vis,vector<vector<int>> &adj,vector<int> &tin,vector<int> &low){
+    vis[node]=1;
+    low[node]=tin[node]=timer;
+    timer++;
+    for(auto& i:adj[node]){
+        if(i==par) continue;
+        if(vis[i]) low[node]=min(low[node],low[i]);
+        else{
+            dfs(i,node,vis,adj,tin,low);
+            low[node]=min(low[node],low[i]);
+        }
+    }
+}
